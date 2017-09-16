@@ -5,18 +5,21 @@ import {
   AppRegistry, 
   View, 
   Text, 
-  StyleSheet
+  StyleSheet,
+  Image,
+  Dimensions
 } from 'react-native'
+
+import picGolf1 from './assets/golf1.jpg'
+import picGolf2 from './assets/golf2.png'
 
 //Create react component
 
 class App extends React.Component {
   render() {
     return (
-      <View> 
-        <Text style={[styles.defaultText,styles.selectedText]}> Chris </Text>
-        <Text style={[styles.defaultText,styles.selectedText]}> Charlie </Text>
-        <Text style={[styles.defaultText,styles.selectedText]}> Mason </Text>
+      <View style={styles.container}>
+        <Image source={picGolf2} style={styles.pic} /> 
       </View>
     )
   }
@@ -36,6 +39,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
     color: 'blue',
     fontWeight: "bold"
+  },
+  container: {
+    backgroundColor: 'gray',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  pic: {
+    flex:1,
+    width:Dimensions.get('window').width,
+    resizeMode: 'cover'
+
   }
 })
 
