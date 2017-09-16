@@ -1,46 +1,45 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+//Import files needed
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React from 'react'
+import { 
+  AppRegistry, 
+  View, 
+  Text, 
+  StyleSheet
+} from 'react-native'
 
-export default class HelloWorld extends Component {
+//Create react component
+
+class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Hello World!
-        </Text>
+      <View> 
+        <Text style={[styles.defaultText,styles.selectedText]}> Chris </Text>
+        <Text style={[styles.defaultText,styles.selectedText]}> Charlie </Text>
+        <Text style={[styles.defaultText,styles.selectedText]}> Mason </Text>
       </View>
-    );
+    )
   }
 }
 
+//Create stylesheet
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  defaultText: {
+    fontSize: 24,
+    padding:10,
+    margin: 5,
+    color: "black",
+    borderWidth: 10,
+    borderColor: "red"
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  selectedText: {
+    backgroundColor: 'yellow',
+    color: 'blue',
+    fontWeight: "bold"
+  }
+})
 
-AppRegistry.registerComponent('HelloWorld', () => HelloWorld);
+
+//Register component, first takes the app name, second is a function
+
+AppRegistry.registerComponent('HelloWorld', () => App)
