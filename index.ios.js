@@ -10,16 +10,28 @@ import {
   Dimensions
 } from 'react-native'
 
-import picGolf1 from './assets/golf1.jpg'
-import picGolf2 from './assets/golf2.png'
-
 //Create react component
 
 class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      backgroundColor: 'blue'
+    }
+    this.changeColor = this.changeColor.bind(this)
+  }
+
+  changeColor(backgroundColor) {
+    this.setState({backgroundColor})
+  }
+
+
   render() {
+    const { backgroundColor } = this.state
     return (
-      <View style={styles.container}>
-        <Image source={picGolf2} style={styles.pic} /> 
+      <View style={[styles.container,{ backgroundColor } ]}>
+        <Text style={styles.button} onPress={ () => this.changeColor('green')} > Green </Text>
+        <Text style={styles.button} onPress={ () => this.changeColor('red')} > Red </Text>
       </View>
     )
   }
@@ -27,31 +39,22 @@ class App extends React.Component {
 
 //Create stylesheet
 const styles = StyleSheet.create({
-  defaultText: {
-    fontSize: 24,
-    padding:10,
-    margin: 5,
-    color: "black",
-    borderWidth: 10,
-    borderColor: "red"
-  },
-  selectedText: {
-    backgroundColor: 'yellow',
-    color: 'blue',
-    fontWeight: "bold"
-  },
   container: {
-    backgroundColor: 'gray',
-    flexDirection: 'row',
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'gray'
   },
-  pic: {
-    flex:1,
-    width:Dimensions.get('window').width,
-    resizeMode: 'cover'
-
+  button: {
+    fontSize: 30,
+    margin: 10,
+    padding: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    alignSelf: 'stretch',
+    textAlign: 'center'
   }
+
 })
 
 
