@@ -3,20 +3,27 @@
 import React from 'react'
 import { 
   AppRegistry, 
-  View, 
-  Text, 
+  View,  
   StyleSheet,
-  Image,
-  Dimensions
+  ListView,
+  Text
 } from 'react-native'
+
+import ColorButton from './components/color-button'
 
 //Create react component
 
 class App extends React.Component {
   constructor() {
     super()
+    this.ds = new ListView.DataSource({
+      rowHasChanged: (r1,r2) => r1 !== r2
+    }) 
+    const availableColors = ['red','green','yellow','orange','purple','brown','black','white','lime']
     this.state = {
-      backgroundColor: 'blue'
+      backgroundColor: 'blue',
+      availableColors,
+      dataSource: this.ds.cloneWithRows(availableColors)
     }
     this.changeColor = this.changeColor.bind(this)
   }
@@ -24,15 +31,19 @@ class App extends React.Component {
   changeColor(backgroundColor) {
     this.setState({backgroundColor})
   }
-
-
   render() {
-    const { backgroundColor } = this.state
+    const { backgroundColor, dataSource } = this.state
     return (
-      <View style={[styles.container,{ backgroundColor } ]}>
-        <Text style={styles.button} onPress={ () => this.changeColor('green')} > Green </Text>
-        <Text style={styles.button} onPress={ () => this.changeColor('red')} > Red </Text>
-      </View>
+      <ListView style={ [styles.container,{ backgroundColor }]}
+        dataSource={dataSource} 
+        renderRow= {(color) => (
+          <ColorButton backgroundColor={color} 
+            onSelect= {this.changeColor}/>
+          )}
+          renderHeader={() => (
+             <Text style={styles.header}>Color-List </Text>
+        )}>
+      </ListView>
     )
   }
 }
@@ -41,20 +52,14 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'gray'
   },
-  button: {
-    fontSize: 30,
-    margin: 10,
+  header: {
+    backgroundColor: 'lightgrey',
+    paddingTop:20,
     padding: 10,
-    borderWidth: 2,
-    borderRadius: 10,
-    alignSelf: 'stretch',
-    textAlign: 'center'
+    fontSize:30,
+    textAlign:'center'
   }
-
 })
 
 
