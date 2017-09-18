@@ -9,7 +9,8 @@ import {
   Text
 } from 'react-native'
 
-import ColorButton from './components/color-button'
+import ColorButton from './components/colorButton'
+import ColorForm from './components/colorForm'
 
 //Create react component
 
@@ -19,27 +20,29 @@ class App extends React.Component {
     this.ds = new ListView.DataSource({
       rowHasChanged: (r1,r2) => r1 !== r2
     }) 
-    const availableColors = [
-      'red',
-      'green',
-      'yellow',
-      'orange',
-      'purple',
-      'brown',
-      'black',
-      'white',
-      'lime'
-      ]
+    const availableColors = ['red','lime','purple']
     this.state = {
       backgroundColor: 'blue',
       availableColors,
       dataSource: this.ds.cloneWithRows(availableColors)
     }
     this.changeColor = this.changeColor.bind(this)
+    this.newColor = this.newColor.bind(this)
   }
 
   changeColor(backgroundColor) {
     this.setState({backgroundColor})
+  }
+
+  newColor(color) {
+    const availableColors = [
+      ...this.state.availableColors,
+      color
+    ]
+    this.setState({
+      availableColors,
+      dataSource: this.ds.cloneWithRows(availableColors)
+    })
   }
   render() {
     const { backgroundColor, dataSource } = this.state
@@ -51,7 +54,7 @@ class App extends React.Component {
             onSelect= {this.changeColor}/>
           )}
           renderHeader={() => (
-             <Text style={styles.header}>Color-List </Text>
+             <ColorForm onNewColor={this.newColor} />
         )}>
       </ListView>
     )

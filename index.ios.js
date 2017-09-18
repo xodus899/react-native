@@ -27,10 +27,22 @@ class App extends React.Component {
       dataSource: this.ds.cloneWithRows(availableColors)
     }
     this.changeColor = this.changeColor.bind(this)
+    this.newColor = this.newColor.bind(this)
   }
 
   changeColor(backgroundColor) {
     this.setState({backgroundColor})
+  }
+
+  newColor(color) {
+    const availableColors = [
+      ...this.state.availableColors,
+      color
+    ]
+    this.setState({
+      availableColors,
+      dataSource: this.ds.cloneWithRows(availableColors)
+    })
   }
   render() {
     const { backgroundColor, dataSource } = this.state
@@ -42,7 +54,7 @@ class App extends React.Component {
             onSelect= {this.changeColor}/>
           )}
           renderHeader={() => (
-             <ColorForm onNewColor{this.newColor}/>
+             <ColorForm onNewColor={this.newColor} />
         )}>
       </ListView>
     )
